@@ -7,7 +7,7 @@
 
 ### Overview
 
-Front end tests written in dart for [go mummy go](https://www.gyerunkanyukam.hu/) you will need to have the dart environment set up on your machine [Setting Up Dart](https://www.dartlang.org/install) you will also need to have Java installed and the executable added to your system path in order to use selenium webdriver (selenium-server-standalone-3.6.0.jar). 
+Front end tests written in dart for [go mummy go](https://www.gyerunkanyukam.hu/). You will need to have the dart environment set up on your machine [Setting Up Dart](https://www.dartlang.org/install) you will also need to have Java installed [How to Install Java](https://docs.oracle.com/javase/7/docs/webnotes/install/windows/jdk-installation-windows.html) and the executable added to your system path in order to use [Selenium Webdriver](http://www.seleniumhq.org/download/) (selenium-server-standalone-3.6.0.jar is included in the project root). 
 
 The tests will start selenium processes in the background - or you can start selenium manually with the start_selenium.bat file in the project root. 
 
@@ -15,7 +15,7 @@ You may use taskkill to end all instances of selenium.
 ```bash
 $ taskkill /im java.exe /f
 ```
-Or run the kill_selenium.bat file in the project root.
+Or run the kill_selenium.bat file in the project root which does the same thing.
 
 
 ### Table of Contents
@@ -123,14 +123,12 @@ Dart has a prescribed directory structure in order to ensure that its tools work
 out of the box.
 
 ```
-your_app/
-├── lib/
-│   └── src/
-├── test/
-├── tool/
-├── web/
-├── pubspec.lock
-└── pubspec.yaml
+root/
+ 	libs/
+ 	test/
+	tool/
+	pubspec.lock
+	pubspec.yaml
 ```
 
 * **`lib/`**
@@ -160,7 +158,7 @@ dev_dependencies:
   test:
   pageloader:
   random_string:
-
+```
 This file tells `pub` which versions of the included packages it needs to retrieve. You can find more information about what all can be included in this file [here](https://www.dartlang.org/tools/pub/pubspec).
 
 ### What is Dart?
