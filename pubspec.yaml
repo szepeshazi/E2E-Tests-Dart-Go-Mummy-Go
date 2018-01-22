@@ -1,0 +1,8 @@
+name: frontend_tests
+
+dev_dependencies:
+  js: any
+  webdriver: 1.2.2+1
+  test:
+  pageloader:
+  random_string:

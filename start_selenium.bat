@@ -1,0 +1,1 @@
+java.exe -Ddriver.chrome.driver=chromedriver.exe -jar selenium-server-standalone-3.6.0.jar
