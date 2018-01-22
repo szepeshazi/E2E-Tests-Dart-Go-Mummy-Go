@@ -24,7 +24,7 @@ Or run the kill_selenium.bat file in the project root which does the same thing.
 - [Running Tests](#running-tests)
 - [Test Descriptions](#test-descriptions)
 - [Directory And File Structure](#directory-and-file-structure)
-- [Defining Dependancies](#defining-dependancies)
+- [Defining Dependencies](#defining-dependencies)
 - [What is Dart?](#what-is-dart)
 - [Additional Resources](#additional-resources)
 
