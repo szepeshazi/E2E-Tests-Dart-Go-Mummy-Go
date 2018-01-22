@@ -7,7 +7,7 @@
 
 ### Overview
 
-Front end tests written in dart for [go mummy go](https://www.gyerunkanyukam.hu/). You will need to have the dart environment set up on your machine [Setting Up Dart](https://www.dartlang.org/install) you will also need to have Java installed [How to Install Java](https://docs.oracle.com/javase/7/docs/webnotes/install/windows/jdk-installation-windows.html) and the executable added to your system path in order to use [Selenium Webdriver](http://www.seleniumhq.org/download/) (selenium-server-standalone-3.6.0.jar is included in the project root). 
+Front end tests written in dart for [go mummy go](https://www.gyerunkanyukam.hu/). You will need to have the dart environment set up on your machine [Setting Up Dart](https://www.dartlang.org/install). You will also need to have Java installed [How to Install Java](https://docs.oracle.com/javase/7/docs/webnotes/install/windows/jdk-installation-windows.html) and the executable added to your system path in order to use [Selenium Webdriver](http://www.seleniumhq.org/download/) (selenium-server-standalone-3.6.0.jar is included in the project root). 
 
 The tests will start selenium processes in the background - or you can start selenium manually with the start_selenium.bat file in the project root. 
 
