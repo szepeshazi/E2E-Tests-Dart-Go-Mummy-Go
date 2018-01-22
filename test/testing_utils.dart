@@ -13,11 +13,6 @@ void startSelenium() {
       []);
 }
 
-void stopSelenium() {
-  print("Stopping Selenium Chrome Driver");
-  Process.run("taskkill /im java.exe /f", []);
-}
-
 Future<WebDriver> setupWebDriver(int width, int height) async {
   var options = {'browserName': 'chrome'};
   WebDriver driver = await createDriver(desired: options);
@@ -57,6 +52,10 @@ Future<String> signUpNewRandomUser(WebDriver driver, String pw) async {
   await waitForAngular(driver);
   await sleep5();
   return newRandomUserEmail;
+}
+
+String generateRandomEmail() {
+  return random.randomAlphaNumeric(10) + "@email.com";
 }
 
 Future loginUserWithCredentials(
@@ -112,36 +111,6 @@ Future dismissOverlay(WebDriver driver) async {
   }
 }
 
-Future logoutUser(WebDriver driver) async {
-  bool loggedIn = await isLoggedIn(driver);
-  var profileBtn;
-  var logoutBtn;
-  if (loggedIn) {
-    try {
-      await waitForAngular(driver);
-      profileBtn = await driver
-          .findElement(const By.cssSelector('div.menu-item--profile > a'));
-      logoutBtn = await driver.findElement(const By.xpath(
-          '*//div[contains(@class, "menu-item")]/a/span[contains(text(), "Kilépés")]'));
-    } on NoSuchElementException catch (e) {
-      print("logoutUser: Logout element(s) not found.");
-    } catch (exception, stackTrace) {
-      print("Exceptions caught:");
-      print(exception);
-      print(stackTrace);
-    } finally {
-      if (elementExists(profileBtn) && elementExists(logoutBtn)) {
-        await profileBtn.click();
-        await logoutBtn.click();
-      }
-      print("logoutUser: Logged out");
-      await waitForAngular(driver);
-    }
-  } else {
-    print("logoutUser: User wasnt logged in");
-  }
-}
-
 Future<bool> isLoggedIn(WebDriver driver) async {
   var profilePicture = null;
   bool loggedIn = false;
@@ -158,6 +127,36 @@ Future<bool> isLoggedIn(WebDriver driver) async {
   } finally {
     loggedIn = elementExists(profilePicture);
     return loggedIn;
+  }
+}
+
+Future logoutUser(WebDriver driver) async {
+  bool loggedIn = await isLoggedIn(driver);
+  var profileBtn;
+  var logoutBtn;
+  if (loggedIn) {
+    try {
+      await waitForAngular(driver);
+      profileBtn = await driver.findElement(
+          const By.cssSelector('div.menu-item--profile > a > account-picture'));
+      logoutBtn = await driver.findElement(const By.xpath(
+          '*//div[contains(@class, "menu-item")]/a/span[contains(text(), "Kilépés")]'));
+    } on NoSuchElementException catch (e) {
+      print("logoutUser: Logout element(s) not found.");
+    } catch (exception, stackTrace) {
+      print("Exceptions caught:");
+      print(exception);
+      print(stackTrace);
+    } finally {
+      await waitForAngular(driver);
+      if (elementExists(profileBtn) && elementExists(logoutBtn)) {
+        await profileBtn.click();
+        await logoutBtn.click();
+      }
+      print("logoutUser: Logged out");
+    }
+  } else {
+    print("logoutUser: User wasnt logged in");
   }
 }
 
@@ -187,10 +186,6 @@ Future<bool> checkForConsoleErrors(WebDriver driver, String logLevel) async {
   return hasErrors;
 }
 
-String generateRandomEmail() {
-  return random.randomAlphaNumeric(10) + "@email.com";
-}
-
 Future sleep10() {
   return new Future.delayed(const Duration(seconds: 10), () => "10");
 }
@@ -217,4 +212,13 @@ bool isXAtLeastValueOfY(num x, num y) {
 
 bool isXLessThanY(num x, num y) {
   return (x < y);
+}
+
+void stopSelenium() {
+  print("Stopping Selenium Chrome Driver");
+  Process.run("taskkill /im java.exe /f", []);
+}
+
+void playCompletionBeep() {
+  print(new String.fromCharCodes([0x07]));
 }

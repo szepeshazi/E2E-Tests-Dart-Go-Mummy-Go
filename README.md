@@ -5,22 +5,24 @@
   <br>
 </h1>
 
+
 ### Overview
 
 Front end tests written in dart for [go mummy go](https://www.gyerunkanyukam.hu/). You will need to have the dart environment set up on your machine [Setting Up Dart](https://www.dartlang.org/install). You will also need to have Java installed [How to Install Java](https://docs.oracle.com/javase/7/docs/webnotes/install/windows/jdk-installation-windows.html) and the executable added to your system path in order to use [Selenium Webdriver](http://www.seleniumhq.org/download/) (selenium-server-standalone-3.6.0.jar is included in the project root). 
 
-The tests will start selenium processes in the background - or you can start selenium manually with the start_selenium.bat file in the project root. 
+The tests will start selenium processes in the background and kill them at teardown - you may start selenium manually with the start_selenium.bat file in the project root. 
 
 You may use taskkill to end all instances of selenium.
 ```bash
 $ taskkill /im java.exe /f
 ```
-Or run the kill_selenium.bat file in the project root which does the same thing.
+Or run the kill_selenium.bat file in the project root which is also intended to do the same thing.
 
 
 ### Table of Contents
 
 - [Quickstart](#quickstart)
+- [Important Notes](#important-notes)
 - [Running Tests](#running-tests)
 - [Test Descriptions](#test-descriptions)
 - [Directory And File Structure](#directory-and-file-structure)
@@ -28,17 +30,34 @@ Or run the kill_selenium.bat file in the project root which does the same thing.
 - [What is Dart?](#what-is-dart)
 - [Additional Resources](#additional-resources)
 
+
 ### Quickstart
 
 ```bash
 $ git clone https://github.com/con-king/E2E-Tests-Dart-Go-Mummy-Go.git
+$ cd e2e-tests-dart-go-mummy-go
 $ pub get
 $ pub run test
 ```
 
+
+### Important Notes
+
+
+The credentials for testing login features are set in the main test file /test/frontend_test.dart
+
+newUserEmail should point to the username email of a user still within the bounds of their trial (probe) period. Or some tests depending on the trial may fail.. See test descriptions below [Test Descriptions](#test-descriptions)
+
+```dart
+  var newUserEmail = "connor.stansfield.development@gmail.com";
+  var oldUserEmail = "connor_stansfield@live.com";
+  var allUserPassword = "password123%";
+```
+
+
 ### Running Tests
 
-All of the test files are located in the `test/` directory. Seperated by into files and grouped by similarity. See test descriptions below [Test Descriptions](#test-descriptions)
+All of the test files are located in the `test/` directory in the file frontend_test.dart. Tests are seperated into groups by similarity. See test descriptions below [Test Descriptions](#test-descriptions)
 
 We can now run all unit tests using the following command:
 
@@ -49,13 +68,13 @@ $ pub run test
 A single test file can be run just using:
 
 ```bash
-$ pub run test path/to/test.dart.
+$ pub run test path/to/frontend_test.dart.
 ```
 
 You can select specific tests cases to run by name using:
 
 ```bash
-$ pub run test -n "Test #7: Register a new user"
+$ pub run test -n "register a new user"
 ```
 
 The string is interpreted as a regular expression, and only tests whose description (including any group descriptions) match that regular expression will be run. You can also use the -N flag to run tests whose names contain a plain-text string.
@@ -102,19 +121,28 @@ Test #18: Check you see a bunch of videos showing up
 
 Test #19: Try to play the video, check if the popup shows up on page
 
-Test #20: Check if the filtering options work
+Test #20: Check if the workout type filtering options work
 
-Test #21: After login, Check user shows on all Highscore lists
+Test #21: Check if the workout time filtering options work
 
-Test #22 (Örökranglista): Scores Page Birth-List Tab has data and includes users name
+Test #22: Check if the text filtering options work
 
-Test #23 (30 napos): Scores Page 30-Days Tab has data and includes users name
+Test #23: After login, Check user shows on all Highscore lists
 
-Test #24 (egy hónapban): Scores Page 1-Month-Ago Tab has data and includes users name
+Test #24 (Örökranglista): Scores Page Birth-List Tab has data and includes users name
 
-Test #25: Check clicking on "Megvasarlom" throws no errors | The GWL
+Test #25 (30 napos): Scores Page 30-Days Tab has data and includes users name
 
-Test #26: Clicking on "Megvasarlom" throws no errors | Superhuman Program
+Test #26 (egy hónapban): Scores Page 1-Month-Ago Tab has data and includes users name
+
+Test #27: Check clicking on "Megvasarlom" throws no errors | The GWL
+
+Test #28: Clicking on "Megvasarlom" throws no errors | Superhuman Program
+
+Test #29: Clicking on "Megvasarlom" throws no errors | Dancing Mom
+
+Test #30: Clicking on "Megvasarlom" throws no errors | Joga Mania
+
 
 
 #### Directory And File Structure
@@ -144,6 +172,7 @@ root/
   `pubspec.yaml` or by running `pub upgrade`.```
 
 
+
 #### Defining Dependencies
 
 As previously mentioned, we'll use the `pubspec.yaml` file in our root directory to define the dependencies for our project. Let's take a look at the `pubspec.yaml` for the todo list.
@@ -159,7 +188,10 @@ dev_dependencies:
   pageloader:
   random_string:
 ```
+
 This file tells `pub` which versions of the included packages it needs to retrieve. You can find more information about what all can be included in this file [here](https://www.dartlang.org/tools/pub/pubspec).
+
+
 
 ### What is Dart?
 
