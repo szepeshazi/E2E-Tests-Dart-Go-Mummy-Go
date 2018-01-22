@@ -5,19 +5,12 @@ import 'package:random_string/random_string.dart' as random;
 import 'dart:async';
 import 'dart:io';
 
-bool _testingStarted = false;
-
 void startSelenium() {
-  if (!_testingStarted) {
-    _testingStarted = true;
-    print("Starting Selenium Chrome Driver");
-    Process.run(
-        'java.exe -Ddriver.chrome.driver=chromedriver.exe -jar '
-        'selenium-server-standalone-3.6.0.jar',
-        []);
-  } else {
-    print("Selenium Already Running");
-  }
+  print("Starting Selenium Chrome Driver");
+  Process.run(
+      'java.exe -Ddriver.chrome.driver=chromedriver.exe -jar '
+      'selenium-server-standalone-3.6.0.jar',
+      []);
 }
 
 void stopSelenium() {
@@ -168,7 +161,7 @@ Future<bool> isLoggedIn(WebDriver driver) async {
   }
 }
 
-Future clickMegvasarlom (WebDriver driver, String productSlug) async {
+Future clickMegvasarlom(WebDriver driver, String productSlug) async {
   await navigateToPage(driver, productSlug);
   await waitForAngular(driver);
   await sleep5();
